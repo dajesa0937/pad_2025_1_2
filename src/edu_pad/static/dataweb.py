@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup  # Importing BeautifulSoup for web scraping
 import datetime  # Importing datetime for date manipulation
 
 
-class Dataweb:
+class DataWeb:
     def __init__(self):
         self.url = "https://es.finance.yahoo.com/quote/DOLA-USD/history/"  # URL of the dataweb
 
