@@ -12,10 +12,19 @@ setup(
                     Modular architecture enables easy extension, scheduling, and integration into larger workflows.""",
     py_modules=["Actividad1", "Actividad2", "Actividad3", "Actividad4"],
     install_requires=[
+       "streamlit-ace",
+        "streamlit-discourse",
+        "streamlit-disqus",
+        "streamlit-elements",
+        "streamlit-pandas-profiling",
+        "streamlit-player",
+        "streamlit-quill",
+        "streamlit",
         "pandas",
         "openpyxl",
         "requests",
-        "beautifulsoup4"
+        "beautifulsoup4",
+        "altair>=5.0.0"
     ]
     
   )
