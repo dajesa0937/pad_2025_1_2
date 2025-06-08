@@ -8,11 +8,16 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: write
+      contents: write # Asegúrate de que este permiso sea suficiente para escribir en el repo
 
     steps:
       - name: Paso 1 - Checkout repo
         uses: actions/checkout@v4
+        with:
+          # Es crucial que GitHub Actions tenga acceso al token para hacer el pull/push
+          # Si tienes problemas, podrías necesitar un PAT (Personal Access Token)
+          # pero normalmente GITHUB_TOKEN es suficiente con el permiso 'contents: write'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Paso 2 - Setup Python
         uses: actions/setup-python@v5
@@ -25,6 +30,9 @@ jobs:
       - name: Paso 4 - activar entorno virtual
         shell: bash
         run: |
+          # En Windows, para GitHub Actions, a veces es más robusto usar el comando directamente
+          # o asegurarse de que el PATH esté configurado correctamente.
+          # Sin embargo, tu forma de activar el venv es común.
           source ./venv/Scripts/activate || ./venv/Scripts/activate.bat
 
       - name: Paso 5 - actualizar pip
@@ -43,5 +51,9 @@ jobs:
           commit_user_name: Dawin Salazar Oviedo [GitHub Actions]
           commit_user_email: dajesa0937@gmail.com
           commit_author: Dawin Salazar Oviedo <dajesa0937@gmail.com>
-        env:
-          GIT_PULL_BEFORE_COMMIT: true
+          # **LA CORRECCIÓN AQUÍ:** Usa 'pull_options' para forzar un pull antes del commit.
+          # La opción '--rebase' es a menudo preferible a un merge para mantener un historial lineal.
+          # Si prefieres un merge, usa '--no-ff' o simplemente déjalo vacío para un merge por defecto.
+          pull_options: '--rebase --autostash' # Opcional: --autostash para guardar cambios temporalmente
+          # Asegúrate de que el patrón de archivo esté correcto si no quieres que se incluyan todos los archivos
+          file_pattern: 'data_web.csv dataweb_limpio.xlsx' # O '.' si quieres todos los archivos modificados
