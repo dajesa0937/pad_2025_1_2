@@ -1,4 +1,4 @@
-from edu_pad.dataweb import DataWeb
+from edu_pad.dataweb  import DataWeb
 import pandas as pd
 
 
