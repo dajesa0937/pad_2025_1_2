@@ -33,3 +33,11 @@ jobs:
             -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
             -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
             dsalazar1234/iudigital_actividad03:latest edu_pad.main_ingesta
+
+      - name: Paso 6 - Ejecutar app Streamlit
+        run: |
+          docker run -d --name actividad03_Iudigital \
+            -p 8501:8501 \
+            -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
+            -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
+            dsalazar1234/iudigital_actividad03:latest
