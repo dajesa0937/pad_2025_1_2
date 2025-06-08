@@ -1,5 +1,6 @@
 name: accionables
 
+
 on:
   push:
     branches: [ main ]
@@ -29,12 +30,10 @@ jobs:
         run: pip install -e .
       - name: Paso 7 - Ejecutar Main
         run: python src/edu_pad/main.py
-      - name: Commit and push changes
-          uses: stefanzweifel/git-auto-commit-action@v5
-          with:
-            commit_message: Genera archivo csv de la web
-            push_options: --force
-
-          commit_user_name: Dawin Salazar Oviedo [GitHub Actions]
+      - name: Paso 8 - Guardar el commit con el ultimo cambio desde pipeline
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Genera archivo csv de las web
+          commit_user_name: Dawin Salazar Oviedo - Eulicer Zapata [GitHub Actions]
           commit_user_email: dajesa0937@gmail.com
-          commit_author: Dawin Salazar Oviedo <dajesa0937@gmail.com>
+          commit_author: Dawin Salazar  <dajesa0937@gmail>
