@@ -8,55 +8,31 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: write # Asegúrate de que este permiso sea suficiente para escribir en el repo
+      contents: write
+
 
     steps:
       - name: Paso 1 - Checkout repo
         uses: actions/checkout@v4
-        with:
-          # Es crucial que GitHub Actions tenga acceso al token para hacer el pull/push.
-          # ${{ secrets.GITHUB_TOKEN }} es el token predeterminado que GitHub Actions proporciona.
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- NUEVO PASO CLAVE: Sincronizar antes de generar cambios ---
-      - name: Paso 2 - Sincronizar rama con remoto (git pull --rebase)
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-          echo "Realizando git pull --rebase origin main..."
-          git pull --rebase origin main
-          echo "Estado del historial después del pull:"
-          git log -3 --pretty=oneline # Mostrar los últimos 3 commits para verificar
-
-      - name: Paso 3 - Setup Python
+      - name: Paso 2 - Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.9.2'
-
-      - name: Paso 4 - crea entorno virtual
+      - name: Paso 3 - crea entorno virtual
         run: python -m venv venv
-
-      - name: Paso 5 - activar entorno virtual
-        shell: bash
-        run: |
-          source ./venv/Scripts/activate || ./venv/Scripts/activate.bat
-
-      - name: Paso 6 - actualizar pip
+      - name: Paso 4 - activar entorno virtual
+        run: ./venv/Scripts/activate   
+      - name: Paso 5 - actualizar pip
         run: pip install --upgrade pip
-
-      - name: Paso 7 - instalar dependencias
+      - name: Paso 6 - instalar dependencias
         run: pip install -e .
-
-      - name: Paso 8 - Ejecutar Main
+      - name: Paso 7 - Ejecutar Main
         run: python src/edu_pad/main.py
-
-      - name: Paso 9 - Commit and Push changes
+      - name: Paso 8 - Guardar el commit con el ultimo cambio desde pipeline
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Genera archivo csv de la web
+          commit_message: Genera archivo csv de las web
           commit_user_name: Dawin Salazar Oviedo [GitHub Actions]
-          commit_user_email: dajesa0937@gmail.com
-          commit_author: Dawin Salazar Oviedo <dajesa0937@gmail.com>
-          # Importante: Quitamos 'pull_options' de aquí, ya que el pull se maneja explícitamente arriba.
-          # pull_options: '--rebase --autostash' # <--- ELIMINA ESTA LÍNEA SI ESTÁ PRESENTE
-          file_pattern: 'data_web.csv dataweb_limpio.xlsx' # O '.' si quieres todos los archivos modificados
+          commit_user_email: dawin.salazar@iudigital.edu.co
+          commit_author: Dawin Salazar Oviedo <dawin.salazar@iudigital.edu.co>
