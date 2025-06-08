@@ -1,5 +1,5 @@
 
-from src.edu_pad.static.database import DataBase
+from edu_pad.database import DataBase
 import pandas as pd
 
 
