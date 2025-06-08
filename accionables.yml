@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Paso 1 - Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Necesario para git pull --rebase
 
       - name: Paso 2 - Setup Python
         uses: actions/setup-python@v5
@@ -25,7 +23,9 @@ jobs:
         run: python -m venv venv
 
       - name: Paso 4 - activar entorno virtual
-        run: ./venv/Scripts/activate   
+        shell: bash
+        run: |
+          source ./venv/Scripts/activate || ./venv/Scripts/activate.bat
 
       - name: Paso 5 - actualizar pip
         run: pip install --upgrade pip
@@ -36,17 +36,12 @@ jobs:
       - name: Paso 7 - Ejecutar Main
         run: python src/edu_pad/main.py
 
-      - name: Paso 8 - Pull para evitar conflictos de ramas
-        run: |
-          git config user.name "Dawin Salazar Oviedo [GitHub Actions]"
-          git config user.email "dajesa0937@gmail.com"
-          git pull origin main --rebase
-
-      - name: Paso 9 - Guardar el commit con el último cambio desde pipeline
+      - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Genera archivo csv de las web
-          commit_user_name: Dawin Salazar Oviedo - Eulicer Zapata [GitHub Actions]
+          commit_message: Genera archivo csv de la web
+          commit_user_name: Dawin Salazar Oviedo [GitHub Actions]
           commit_user_email: dajesa0937@gmail.com
-          commit_author: Dawin Salazar <dajesa0937@gmail.com>
-          branch: main
+          commit_author: Dawin Salazar Oviedo <dajesa0937@gmail.com>
+        env:
+          GIT_PULL_BEFORE_COMMIT: true
