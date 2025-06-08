@@ -37,7 +37,7 @@ Este proyecto implementa un flujo ETL (Extracción, Transformación y Carga) par
 
 ## Estructura del Proyecto
 
-pad_2025_1_2/
+```pad_2025_1_2/
 ├── .github/
 │ └── workflows/
 │ ├── 0-setup-environment.yml
@@ -57,7 +57,7 @@ pad_2025_1_2/
 │ └── logs/
 ├── dockerFile
 ├── setup.py
-└── README.md
+└── README.md```
 
 bash
 Copy
