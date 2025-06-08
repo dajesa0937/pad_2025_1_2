@@ -69,14 +69,16 @@ Edit
 1. Construye la imagen con:
 
 ```bash
-docker build -t dajesa0937/pad_2025_1_2:latest .
-Ejecuta el contenedor:
+1. Construye la imagen con:
+
+```bash
+docker build -t dsalazar1234/actividadiudigital03:latest .
 ```
 
 bash
 Copy
 Edit
-docker run -it --rm dajesa0937/pad_2025_1_2:latest
+docker run -p 8501:8501 dsalazar1234/actividadiudigital03
 Requisitos
 Tener Docker instalado y corriendo.
 
