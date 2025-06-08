@@ -1,4 +1,4 @@
-name: pruebas Docker
+name: pruebas hola mundo docker
 
 on:
   push:
@@ -16,28 +16,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-
       - name: Paso 3 - configurar la imagen docker
-        run: docker build -t dsalazar1234/iudigital_actividad03:latest .
-
+        run: docker build -t contenedor .
       - name: Paso 4 - Ejecutar extractor
         run: |
-          docker run --rm --name extractor_iudigital_actividad03 \
+          docker run --rm \
             -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
             -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
-            dsalazar1234/iudigital_actividad03:latest edu_pad.main_extractor
+            contenedor edu_pad.main_extractor
 
       - name: Paso 5 - Ejecutar ingesta
         run: |
-          docker run --rm --name ingesta_iudigital_actividad03 \
+          docker run --rm \
             -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
             -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
-            dsalazar1234/iudigital_actividad03:latest edu_pad.main_ingesta
-
-      - name: Paso 6 - Ejecutar app Streamlit
-        run: |
-          docker run -d --name actividad03_Iudigital \
-            -p 8501:8501 \
-            -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
-            -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
-            dsalazar1234/iudigital_actividad03:latest
+            contenedor edu_pad.main_ingesta
