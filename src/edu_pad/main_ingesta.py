@@ -1,5 +1,5 @@
 
-from edu_pad.database import DataBase
+from src.edu_pad.database import DataBase
 import pandas as pd
 
 
@@ -7,9 +7,7 @@ import pandas as pd
 def main():
     database = DataBase()
     df = pd.read_csv("src/edu_pad/static/csv/data_extractor.csv")
-    
     df_db = database.guardar_df(df)
-    
     #df_db2 = database.obtener_datos() # capa 3 guardar 
     #df_db2.to_csv("static/csv/data_db.csv", index=False)
 
