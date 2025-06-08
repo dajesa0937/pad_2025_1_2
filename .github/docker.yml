@@ -1,7 +1,6 @@
 name: pruebas hola mundo docker
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -17,10 +16,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-
-      - name: Paso 3 - Configurar la imagen docker
+      - name: Paso 3 - configurar la imagen docker
         run: docker build -t contenedor .
-
       - name: Paso 4 - Ejecutar extractor
         run: |
           docker run --rm \
@@ -34,15 +31,3 @@ jobs:
             -v "${{ github.workspace }}/static/csv":/pad_2025_1_2/static/csv \
             -v "${{ github.workspace }}/static/db":/pad_2025_1_2/static/db \
             contenedor edu_pad.main_ingesta
-
-      - name: Paso 6 - Hacer pull antes de commitear para evitar conflictos
-        run: git pull origin main --rebase
-
-      - name: Paso 7 - Commit y push de archivos generados
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-commit: archivos CSV y DB generados"
-          commit_user_name: Dawin Salazar Oviedo [GitHub Actions]
-          commit_user_email: dajesa0937@gmail.com
-          commit_author: Dawin Salazar <dajesa0937@gmail.com>
-          branch: main
