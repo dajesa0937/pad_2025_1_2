@@ -1,4 +1,5 @@
-name: pruebas hola mundo docker
+name: Dockerización y Ejecución de Extractor e Ingesta
+# Descripción: Este workflow se encarga de construir una imagen Docker y ejecutar los scripts de extracción e ingesta.
 
 on:
   push:
