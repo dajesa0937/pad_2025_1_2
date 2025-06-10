@@ -6,11 +6,11 @@ import datetime  # Importing datetime for date manipulation
 
 class DataWeb:
     def __init__(self):
-        self.url = "https://es.finance.yahoo.com/quote/DOLA-USD/history/"  # URL of the dataweb
+        self.url = "https://es.finance.yahoo.com/quote/BTC-USD/history/"  # URL of the dataweb
 
         self.indicator_locations = {
-            "DOLA-USD": {
-                "name": "Dólar/Peso", 
+            "BTC-USD": {
+                "name": "Btc/Dolar", 
                 "country": "Colombia", 
                 "lat": 4.7110, 
                 "lon": -74.0721,
@@ -45,7 +45,7 @@ class DataWeb:
     
 
 
-    def obtener_datos(self, indicador="DOLA-USD"):
+    def obtener_datos(self, indicador="BTC-USD"):
         self.url = "https://es.finance.yahoo.com/quote/{}/history/".format(indicador)
         try:
             # url, cabeceras
